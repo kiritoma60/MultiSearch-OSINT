@@ -1,0 +1,260 @@
+import customtkinter as ctk
+import webbrowser  # <--- Importé pour ouvrir les pages web de recherche
+
+ctk.set_appearance_mode("white")
+ctk.set_default_color_theme("blue")
+
+current_entry = None
+current_type = ""  # c est pou savoir ce quon recherche (lieu, email, etc)
+
+def buton_lieux():
+    global current_entry, current_type
+    current_type = "lieux"
+    fenetre_1.withdraw()
+    fenetre_2 = ctk.CTkToplevel()
+    fenetre_2.title("Recherche par lieu")
+    fenetre_2.geometry("700x500")
+    
+    main_frame = ctk.CTkFrame(fenetre_2, fg_color="transparent")
+    main_frame.pack(expand=True)
+
+    result_label = ctk.CTkLabel(main_frame, text="", wraplength=500, justify="left")
+    result_label.pack(pady=10)
+    
+    saisie1 = ctk.CTkEntry(main_frame, width=350, placeholder_text="Entrez un lieu (ex: Paris, tour Eiffel)")
+    saisie1.pack(pady=10)
+    current_entry = saisie1
+    
+    buton_valider2 = ctk.CTkButton(main_frame, text="⌕  Recherche", command=buton_valider)
+    buton_valider2.pack(pady=10)
+    
+    buton_retour2 = ctk.CTkButton(main_frame, text="Retour", command=buton_retour)
+    buton_retour2.pack(pady=10)
+    
+    bottom_frame = ctk.CTkFrame(fenetre_2, fg_color="transparent")
+    bottom_frame.pack(side="bottom", pady=15)
+    
+    buton_light1 = ctk.CTkButton(bottom_frame, text="Mode clair", fg_color="white", text_color="black", command=changer_light, width=110)
+    buton_light1.pack(side="left", padx=10)
+    buton_dark1 = ctk.CTkButton(bottom_frame, text="Mode sombre", fg_color="black", text_color="white", command=changer_dark, width=110)
+    buton_dark1.pack(side="right", padx=10)
+
+def buton_Email():
+    global current_entry, current_type
+    current_type = "email"
+    fenetre_1.withdraw()
+    fenetre_3 = ctk.CTkToplevel()
+    fenetre_3.title("Recherche par adresse e-mail")
+    fenetre_3.geometry("700x500")
+    
+    main_frame = ctk.CTkFrame(fenetre_3, fg_color="transparent")
+    main_frame.pack(expand=True)
+    
+    saisie2 = ctk.CTkEntry(main_frame, width=350, placeholder_text="Entrez l'adresse e-mail")
+    saisie2.pack(pady=10)
+    current_entry = saisie2
+    
+    buton_valider3 = ctk.CTkButton(main_frame, text="⌕  Recherche", command=buton_valider)
+    buton_valider3.pack(pady=10)
+    
+    buton_retour3 = ctk.CTkButton(main_frame, text="Retour", command=buton_retour)
+    buton_retour3.pack(pady=10)
+    
+    bottom_frame = ctk.CTkFrame(fenetre_3, fg_color="transparent")
+    bottom_frame.pack(side="bottom", pady=15)
+    
+    buton_light2 = ctk.CTkButton(bottom_frame, text="Mode clair", fg_color="white", text_color="black", command=changer_light, width=110)
+    buton_light2.pack(side="left", padx=10)
+    buton_dark2 = ctk.CTkButton(bottom_frame, text="Mode sombre", fg_color="black", text_color="white", command=changer_dark, width=110)
+    buton_dark2.pack(side="right", padx=10)
+
+def buton_Pseudo():
+    global current_entry, current_type
+    current_type = "pseudo"
+    fenetre_1.withdraw()
+    fenetre_4 = ctk.CTkToplevel()
+    fenetre_4.title("Recherche par pseudo")
+    fenetre_4.geometry("700x500")
+    
+    main_frame = ctk.CTkFrame(fenetre_4, fg_color="transparent")
+    main_frame.pack(expand=True)
+    
+    saisie3 = ctk.CTkEntry(main_frame, width=350, placeholder_text="Entrez le pseudo")
+    saisie3.pack(pady=10)
+    current_entry = saisie3
+    
+    buton_valider4 = ctk.CTkButton(main_frame, text="⌕  Recherche", command=buton_valider)
+    buton_valider4.pack(pady=10)
+    
+    buton_retour4 = ctk.CTkButton(main_frame, text="Retour", command=buton_retour)
+    buton_retour4.pack(pady=10)
+    
+    bottom_frame = ctk.CTkFrame(fenetre_4, fg_color="transparent")
+    bottom_frame.pack(side="bottom", pady=15)
+    
+    buton_light3 = ctk.CTkButton(bottom_frame, text="Mode clair", fg_color="white", text_color="black", command=changer_light, width=110)
+    buton_light3.pack(side="left", padx=10)
+    buton_dark3 = ctk.CTkButton(bottom_frame, text="Mode sombre", fg_color="black", text_color="white", command=changer_dark, width=110)
+    buton_dark3.pack(side="right", padx=10)
+
+def buton_NomPrenom():
+    global current_entry, current_type
+    current_type = "nom_prenom"
+    fenetre_1.withdraw()
+    fenetre_5 = ctk.CTkToplevel()
+    fenetre_5.title("Recherche par nom et prénom")
+    fenetre_5.geometry("700x500")
+    
+    main_frame = ctk.CTkFrame(fenetre_5, fg_color="transparent")
+    main_frame.pack(expand=True)
+    
+    saisie4 = ctk.CTkEntry(main_frame, width=350, placeholder_text="Entrez le nom et le prénom")
+    saisie4.pack(pady=10)
+    current_entry = saisie4
+    
+    buton_valider5 = ctk.CTkButton(main_frame, text="⌕  Recherche", command=buton_valider)
+    buton_valider5.pack(pady=10)
+    
+    buton_retour5 = ctk.CTkButton(main_frame, text="Retour", command=buton_retour)
+    buton_retour5.pack(pady=10)
+    
+    bottom_frame = ctk.CTkFrame(fenetre_5, fg_color="transparent")
+    bottom_frame.pack(side="bottom", pady=15)
+    
+    buton_light4 = ctk.CTkButton(bottom_frame, text="Mode clair", fg_color="white", text_color="black", command=changer_light, width=110)
+    buton_light4.pack(side="left", padx=10)
+    buton_dark4 = ctk.CTkButton(bottom_frame, text="Mode sombre", fg_color="black", text_color="white", command=changer_dark, width=110)
+    buton_dark4.pack(side="right", padx=10)
+
+def settings_open():
+    fenetre_1.withdraw()
+    fenetre_6 = ctk.CTkToplevel()
+    fenetre_6.title("SETTINGS")
+    fenetre_6.geometry("500x500")
+    
+    main_frame = ctk.CTkFrame(fenetre_6, fg_color="transparent")
+    main_frame.pack(expand=True)
+    
+    text_settings = ctk.CTkLabel(main_frame, text="⚙️ settings ⚙️", font=("Arial", 22, "bold"))
+    text_settings.pack(pady=(0, 20))
+    
+    set_buton1 = ctk.CTkButton(main_frame, text="Retour", command=buton_retour)
+    set_buton1.pack(pady=10)
+    
+    bottom_frame = ctk.CTkFrame(fenetre_6, fg_color="transparent")
+    bottom_frame.pack(side="bottom", pady=15)
+    
+    buton_light5 = ctk.CTkButton(bottom_frame, text="Mode clair", fg_color="white", text_color="black", command=changer_light, width=110)
+    buton_light5.pack(side="left", padx=10)
+    buton_dark5 = ctk.CTkButton(bottom_frame, text="Mode sombre", fg_color="black", text_color="white", command=changer_dark, width=110)
+    buton_dark5.pack(side="right", padx=10)
+
+def buton_retour():
+    fenetre_1.deiconify()
+    # Correction : On ferme proprement les fenêtres enfants ouvertes sans casser Tkinter
+    for widget in fenetre_1.winfo_children():
+        if isinstance(widget, ctk.CTkToplevel):
+            widget.destroy()
+
+def changer_light():
+    ctk.set_appearance_mode("light")
+
+def changer_dark():
+    ctk.set_appearance_mode("dark")
+
+# --- LE CŒUR DE LA RECHERCHE ---
+def buton_valider():
+    global current_entry, current_type
+    if current_entry is None:
+        return
+    
+    query = current_entry.get().strip()
+    if not query:
+        print("Erreur : Le champ est vide.")
+        return
+       
+    print(f"Recherche de fou lancée [{current_type}] pour : {query}")
+
+    if current_type == "lieux":
+        query_encoded = query.replace(" ", "+")
+
+        webbrowser.open(f'https://www.google.com/maps/search/{query_encoded}')
+        webbrowser.open(f"https://earth.google.com/web/search/{query}")
+
+        result_text = f"""
+        📍 Lieu recherché : {query}
+
+        🔎 Infos rapides :
+        - Recherche ouverte sur Google Maps
+        - Résultats basés sur Google
+        """
+
+        print(result_text)
+        return
+
+    elif current_type == "email":
+        # en general ca trouve rien
+        webbrowser.open(f'https://www.google.com/search?q="{query}"')
+        webbrowser.open(f'https://haveibeenpwned.com/')
+
+    elif current_type == "pseudo":
+        # Recherche sur Google + lien direct vers un outil de Namechecker (WhatsMyName)
+        webbrowser.open(f'https://whatsmyname.app/?q={query}') # Super outil OSINT pour les pseudos en vrai ehehehe
+
+    elif current_type == "nom_prenom":
+        # Recherche combinée exacte et réseaux sociaux majeurs
+        webbrowser.open(f'https://www.google.com/search?q="{query}"')
+        webbrowser.open(f'https://www.google.com/search?q=site:linkedin.com/in/+"{query}"')
+        webbrowser.open(f'https://www.google.com/search?q=site:facebook.com+"{query}"')
+
+def detruire_fenetre_1():
+    fenetre_1.destroy()
+
+# Fenêtre principale la best
+fenetre_1 = ctk.CTk()
+fenetre_1.title("Recherche OSINT")
+fenetre_1.geometry("700x500")
+
+center_frame = ctk.CTkFrame(fenetre_1, fg_color="transparent")
+center_frame.pack(expand=True, anchor="center")
+
+text_entrée = ctk.CTkLabel(
+    center_frame,
+    text="""
+████████╗██████╗  █████╗  ██████╗███████╗██╗    ██╗ █████╗ ██╗   ██╗██╗     ████████╗
+╚══██╔══╝██╔══██╗██╔══██╗██╔════╝██╔════╝██║    ██║██╔══██╗██║   ██║██║     ╚══██╔══╝
+   ██║   ██████╔╝███████║██║     █████╗  ██║    ██║███████║██║   ██║██║        ██║   
+   ██║   ██╔══██╗██╔══██║██║     ██╔══╝  ╚██╗  ██╔╝██╔══██║██║   ██║██║        ██║   
+   ██║   ██║  ██║██║  ██║╚██████╗███████╗ ╚████╔╝ ██║  ██║╚██████╔╝███████╗    ██║   
+   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚══════╝  ╚═══╝  ╚═╝  ╚═╝ ╚═════╝╚══════╝    ╚═╝
+""",
+    font=("Consolas", 8)
+)
+text_entrée.pack(pady=(0, 20))
+
+# help la ca bug un peu faut faire gaffe
+buton_lieux = ctk.CTkButton(center_frame, text="Recherche par lieux", width=300, command=buton_lieux)
+buton_lieux.pack(pady=8)
+
+buton_Email_btn = ctk.CTkButton(center_frame, text="Recherche par adresse e-mail", width=300, command=buton_Email)
+buton_Email_btn.pack(pady=8)
+
+buton_Pseudo_btn = ctk.CTkButton(center_frame, text="Recherche par pseudo", width=300, command=buton_Pseudo)
+buton_Pseudo_btn.pack(pady=8)
+
+buton_NomPrenom_btn = ctk.CTkButton(center_frame, text="Recherche par nom et prénom", width=300, command=buton_NomPrenom)
+buton_NomPrenom_btn.pack(pady=8)
+
+buton_fermer = ctk.CTkButton(center_frame, text="Fermer", fg_color="#d9534f", hover_color="#c9302c", width=300, command=detruire_fenetre_1)
+buton_fermer.pack(pady=(20, 0))
+
+bottom_main_frame = ctk.CTkFrame(fenetre_1, fg_color="transparent")
+bottom_main_frame.pack(side="bottom", pady=10)
+
+settings_1 = ctk.CTkButton(bottom_main_frame, text="Settings", command=settings_open)
+settings_1.pack(pady=5)
+
+text_credits = ctk.CTkLabel(bottom_main_frame, text="Enzo, Mateo, Esteban", text_color="light blue", font=("Arial", 12))
+text_credits.pack()
+
+fenetre_1.mainloop()
